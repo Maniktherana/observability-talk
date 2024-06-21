@@ -9,6 +9,7 @@ ENDPOINTS=(
   "/logs/info"
   "/logs/error"
   "/logs/warn"
+  "/"
 )
 
 function random_index {
@@ -23,5 +24,4 @@ while true; do
   echo "Pinging $BASE_URL$ENDPOINT ..."
   curl -s -o /dev/null -w "%{http_code}\n" "$BASE_URL$ENDPOINT"
 
-  sleep 5
 done
