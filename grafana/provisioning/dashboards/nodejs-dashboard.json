@@ -216,7 +216,7 @@
               }
             ]
           },
-          "unit": "ms"
+          "unit": "s"
         },
         "overrides": []
       },
@@ -906,7 +906,7 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-15m",
     "to": "now"
   },
   "timeRangeUpdatedDuringEditOrView": false,
@@ -928,6 +928,6 @@
   "timezone": "",
   "title": "NodeJS Application Dashboard",
   "uid": "PTSqcpJWk",
-  "version": 11,
+  "version": 12,
   "weekStart": ""
 }
