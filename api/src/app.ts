@@ -54,23 +54,25 @@ app.get("/latency/fast", (req: Request, res: Response) => {
 });
 
 app.get("/latency/medium", (req: Request, res: Response) => {
+  const latency = Math.floor(Math.random() * (2000 - 500 + 1)) + 500;
   setTimeout(() => {
     logger.info("medium response");
     const meter = metrics.getMeter("express-server");
     const mediumLatencyCounter = meter.createCounter("latency_medium_requests");
     mediumLatencyCounter.add(1);
     res.send("Medium response");
-  }, 1000);
+  }, latency);
 });
 
 app.get("/latency/slow", (req: Request, res: Response) => {
+  const latency = Math.floor(Math.random() * (10000 - 4000 + 1)) + 4000;
   setTimeout(() => {
     logger.info("slow response");
     const meter = metrics.getMeter("express-server");
     const slowLatencyCounter = meter.createCounter("latency_slow_requests");
     slowLatencyCounter.add(1);
     res.send("Slow response");
-  }, 3000);
+  }, latency);
 });
 
 app.get("/logs/info", (req: Request, res: Response) => {
@@ -86,11 +88,6 @@ app.get("/logs/warn", (req: Request, res: Response) => {
 app.get("/logs/error", (req: Request, res: Response) => {
   logger.error("This is an error log");
   res.send("Error log recorded");
-});
-
-app.use((err: any, req: any, res: any, next: any) => {
-  logger.error(`Error occurred: ${err.message}`);
-  res.status(500).send("Internal Server Error");
 });
 
 const PORT = process.env.PORT || 5050;

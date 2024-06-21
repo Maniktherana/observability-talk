@@ -1,4 +1,9 @@
-import { collectDefaultMetrics, Registry, Histogram } from "prom-client";
+import {
+  collectDefaultMetrics,
+  Registry,
+  Histogram,
+  Counter,
+} from "prom-client";
 import express, { Request, Response, NextFunction } from "express";
 
 const register = new Registry();
@@ -11,14 +16,23 @@ const httpRequestDuration = new Histogram({
   registers: [register],
 });
 
+const httpRequestCount = new Counter({
+  name: "http_request_count",
+  help: "Total number of HTTP requests",
+  labelNames: ["method", "route", "status_code"],
+  registers: [register],
+});
+
 const metricsMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const end = httpRequestDuration.startTimer();
   res.on("finish", () => {
-    end({
+    const labels = {
       method: req.method,
       route: req.route?.path || req.path,
       status_code: res.statusCode,
-    });
+    };
+    end(labels);
+    httpRequestCount.inc(labels);
   });
   next();
 };
@@ -29,4 +43,10 @@ metricsRouter.get("/metrics", async (req: Request, res: Response) => {
   res.end(await register.metrics());
 });
 
-export { register, httpRequestDuration, metricsMiddleware, metricsRouter };
+export {
+  register,
+  httpRequestDuration,
+  httpRequestCount,
+  metricsMiddleware,
+  metricsRouter,
+};
