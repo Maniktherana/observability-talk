@@ -46,7 +46,15 @@
           },
           "unit": "short"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "{instance=\"app:5050\", job=\"express-app\", method=\"GET\", route=\"/metrics\", status_code=\"200\"}"
+            },
+            "properties": []
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -81,7 +89,7 @@
             "uid": "PC7CB2094113D12BC"
           },
           "editorMode": "code",
-          "expr": "increase(http_request_count{route=~\".+\"}[5m])",
+          "expr": "increase(http_request_count{route=~\".+\", route!=\"/metrics\"}[1m])",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -928,6 +936,6 @@
   "timezone": "",
   "title": "NodeJS Application Dashboard",
   "uid": "PTSqcpJWk",
-  "version": 12,
+  "version": 13,
   "weekStart": ""
 }
