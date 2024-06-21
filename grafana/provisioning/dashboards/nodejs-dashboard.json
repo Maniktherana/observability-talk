@@ -167,7 +167,7 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "width": 400
+          "width": 200
         },
         "tooltip": {
           "maxHeight": 600,
@@ -928,6 +928,6 @@
   "timezone": "",
   "title": "NodeJS Application Dashboard",
   "uid": "PTSqcpJWk",
-  "version": 9,
+  "version": 11,
   "weekStart": ""
 }
