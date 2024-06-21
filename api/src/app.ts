@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import { metricsMiddleware, metricsRouter } from "./metrics";
 import { metrics } from "@opentelemetry/api";
 
-import { createLogger, format } from "winston";
+import { createLogger, format, transports } from "winston";
 import LokiTransport from "winston-loki";
 
 const app = express();
@@ -13,6 +13,7 @@ const logger = createLogger({
   level: "info",
   format: format.combine(format.timestamp(), format.json()),
   transports: [
+    new transports.Console(),
     new LokiTransport({
       host: "http://loki:3100",
       labels: { job: "express-api" },
@@ -35,7 +36,7 @@ app.use((req, res, next) => {
   // Example: Counter for total requests to any route
   const totalRequestsCounter = meter.createCounter("total_requests");
   totalRequestsCounter.add(1);
-  logger.info("totalRequestsCounter", totalRequestsCounter);
+
   next();
 });
 
