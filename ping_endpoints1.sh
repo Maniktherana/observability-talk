@@ -3,9 +3,6 @@
 BASE_URL="http://localhost:5050"
 
 ENDPOINTS=(
-  "/latency/fast"
-  "/latency/slow"
-  "/latency/medium"
   "/logs/info"
   "/logs/error"
   "/logs/warn"
@@ -24,4 +21,5 @@ while true; do
   echo "Pinging $BASE_URL$ENDPOINT ..."
   curl -s -o /dev/null -w "%{http_code}\n" "$BASE_URL$ENDPOINT"
 
+  sleep 5
 done
