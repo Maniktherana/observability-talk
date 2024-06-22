@@ -1,3 +1,5 @@
+<img width="1149" alt="Screenshot 2024-06-22 at 11 41 05 PM" src="https://github.com/Maniktherana/observability-talk/assets/14011425/80981bcf-11e3-4072-99c7-8b25fb249b18">
+
 # Intro to Observability
 
 In this talk I give a brief introduction to observability, what it is, why it is important, and how to get started with it. I also discuss the differences between observability and monitoring, and how they can be used together to improve the reliability and performance of your systems.
